@@ -1,0 +1,21 @@
+header.filter-container{
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: #bdbdbd;
+  margin-bottom: 1em;
+
+  .filter-fields{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em;
+  }
+
+  .filter-query{
+    color: white;
+    text-align: center;
+    padding: 0 0 1em;
+    letter-spacing: 0.05em;
+  }
+}
