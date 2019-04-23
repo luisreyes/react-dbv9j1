@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useReducer } from 'react';
+import UserReducer from './../../Reducers/UserReducer';
 import './UserCard.scss';
 
 export default function User(props) {
@@ -6,13 +7,8 @@ export default function User(props) {
   const [user, setUser] = useState(props);
   const [userFields, setUserFields] = useState({...props});
   const [editing, setEditing] = useState(false);
+  const [state, dispatch] = useReducer(UserReducer);
   
-  // useEffect(() => {
-  //   console.log(props.visible);
-  //   setUser(props);
-  //   console.log(user.visible);
-  // });
-
   const editFields = () => {
     console.log('EDIT FIELDS');
     setUserFields(user);
@@ -27,8 +23,9 @@ export default function User(props) {
   };
 
   const saveEdits = () => {
-    console.log('SAVE EDITS', user);
+    console.log('SAVE EDITS');
     setUser({...user,...userFields});
+    dispatch({type: 'UPDATE_USER', data: {...user,...userFields}});
     setEditing(false);
   };
 
@@ -43,7 +40,7 @@ export default function User(props) {
 
       <div className="user-card-front">
         <section className="user-card-top">
-          <h2 className="user-name">{user.name}</h2>
+          <h2 className="user-name">{user.fullname}</h2>
           <div className="user-edit" onClick={() => {
             editFields();
           }}>
@@ -64,7 +61,7 @@ export default function User(props) {
 
       <div className="user-card-back">
         <section className="user-card-top">
-          <h2 className="user-name">{user.name}</h2>
+          <h2 className="user-name">{user.fullname}</h2>
 
           <div className="user-cancel" onClick={() => {
             cancelEdits();

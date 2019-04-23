@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useReducer } from 'react';
 import { FiltersContext } from './../../Contexts/FiltersContext';
+import UserReducer from './../../Reducers/UserReducer';
 import UserCard from './../UserCard/UserCard';
 import './Users.scss';
 
@@ -17,6 +18,7 @@ export default function Users(props) {
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [state, dispatch] = useReducer(UserReducer);
 
   // Final API endpoint
   const URL = API_BASEURL + '?' + Object.keys(params).map(key => key + '=' + params[key]).join('&');
@@ -32,6 +34,10 @@ export default function Users(props) {
 
           // Set users to variable
           setUsers(result.results);
+
+          // Dispatch to all users to store
+          dispatch({type: 'ADD_USERS', data: result.results});
+
           // Set loading status
           setIsLoading(false);
         })
@@ -54,9 +60,11 @@ export default function Users(props) {
       // Normalize user object for sorting
       const normalizedUser = Object.assign({}, {
         id: user.login.uuid,
-        name: user.name.first + ' ' + user.name.last,
-        firstname: user.name.first,
-        lastname: user.name.last,
+        fullname: user.name.first + ' ' + user.name.last,
+        name:{
+          first: user.name.first,
+          last: user.name.last,
+        },
         email: user.email,
         city: user.location.city,
         state: user.location.state,
@@ -69,7 +77,6 @@ export default function Users(props) {
       const filterStr = filters[0].toUpperCase();
 
       // Lookup the filter query in the stringified user object using String.include()
-      // Set Visible flag for UI
       if(userStr.includes(filterStr))
         normalizedUsers.push(normalizedUser);
 
@@ -94,7 +101,7 @@ export default function Users(props) {
       // Display UserCards for each user in the final array.
       <ul className="user-cards">
         {people.map((person, index) => {
-          return <UserCard visible={person.visible} {...person} key={person.id} />;
+          return <UserCard {...person} key={person.id} />;
         })}
       </ul>
     );
