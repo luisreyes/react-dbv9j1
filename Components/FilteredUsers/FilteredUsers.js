@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import _ from 'underscore';
-import FiltersContext from './../../Contexts/FiltersContext';
+import { FiltersContext } from './../../Contexts/FiltersContext';
 import './FilteredUsers.scss'
 
 export default function FilteredUsers(props) {
@@ -46,6 +46,7 @@ export default function FilteredUsers(props) {
       </header>
       {console.log(query)}
       {props.children}
+    
     </FiltersContext.Provider>
   );
 }

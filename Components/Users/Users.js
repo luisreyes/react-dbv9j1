@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import FiltersContext from './../../Contexts/FiltersContext';
+import { FiltersContext } from './../../Contexts/FiltersContext';
 import UserCard from './../UserCard/UserCard';
 import './Users.scss';
 
@@ -53,6 +53,7 @@ export default function Users(props) {
 
       // Normalize user object for sorting
       const normalizedUser = Object.assign({}, {
+        id: user.login.uuid,
         name: user.name.first + ' ' + user.name.last,
         firstname: user.name.first,
         lastname: user.name.last,
@@ -60,15 +61,15 @@ export default function Users(props) {
         city: user.location.city,
         state: user.location.state,
         phone: user.phone,
-        picture: user.picture.large,
+        picture: user.picture.large
       });
 
       // Make user object an UpperCase String to overcome case sensitivity.
       const userStr = JSON.stringify(normalizedUser).toUpperCase();
-      console.log
       const filterStr = filters[0].toUpperCase();
 
       // Lookup the filter query in the stringified user object using String.include()
+      // Set Visible flag for UI
       if(userStr.includes(filterStr))
         normalizedUsers.push(normalizedUser);
 
@@ -93,7 +94,7 @@ export default function Users(props) {
       // Display UserCards for each user in the final array.
       <ul className="user-cards">
         {people.map((person, index) => {
-          return <UserCard {...person} key={index} />;
+          return <UserCard visible={person.visible} {...person} key={person.id} />;
         })}
       </ul>
     );

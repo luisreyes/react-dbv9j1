@@ -8,7 +8,7 @@ function App() {
 
   return (
     <FilteredUsers>
-      <Users params={{ results: 50 }} />
+      <Users params={{ results: 12 }} />
     </FilteredUsers>
   )
 }

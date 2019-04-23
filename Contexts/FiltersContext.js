@@ -1,5 +1,2 @@
 import React from 'react';
-
-const FiltersContext = React.createContext();
-
-export default FiltersContext;
+export const FiltersContext = React.createContext();

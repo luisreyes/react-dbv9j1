@@ -4,9 +4,15 @@ import './UserCard.scss';
 export default function User(props) {
 
   const [user, setUser] = useState(props);
-  const [userFields, setUserFields] = useState({...user});
+  const [userFields, setUserFields] = useState({...props});
   const [editing, setEditing] = useState(false);
   
+  // useEffect(() => {
+  //   console.log(props.visible);
+  //   setUser(props);
+  //   console.log(user.visible);
+  // });
+
   const editFields = () => {
     console.log('EDIT FIELDS');
     setUserFields(user);
@@ -38,7 +44,6 @@ export default function User(props) {
       <div className="user-card-front">
         <section className="user-card-top">
           <h2 className="user-name">{user.name}</h2>
-
           <div className="user-edit" onClick={() => {
             editFields();
           }}>
