@@ -35,7 +35,7 @@
 }
 
 /* Mobile */
-@media only screen and (max-width : 320px) {
+@media only screen and (max-width : 430px) {
   
   header.filter-container .filter-fields{
     flex-direction: column;
@@ -54,7 +54,7 @@
   }
   .user-card{
     width: 100%;
-    margin: 2%;
+    margin: 0 2%;
   }
 }
 

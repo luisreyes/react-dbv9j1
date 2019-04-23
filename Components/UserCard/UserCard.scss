@@ -1,9 +1,9 @@
 $card-front-color: #426efe;
 $card-back-color: #848484;
+$speed: 750ms;
 
 .user-card {
-  
-perspective: 1000px;
+  perspective: 1000px;
   .user-card-top, .user-card-bottom {
       display: flex;
       flex-direction: column;
@@ -13,11 +13,12 @@ perspective: 1000px;
   }
 
   .user-card-top {
-      
+      border-radius: 5px 5px 0 0;
       width: 100%;
       height: 100px;
-      padding: 0 1em;
       position: relative;
+      transform-style: preserve-3d;
+      
       .user-name {
           position: absolute;
           top: 0;
@@ -50,19 +51,22 @@ perspective: 1000px;
       }
 
       .user-edit, .user-cancel{
-        left: 1em;
+        left: 0;
       }
 
       .user-save{
-        right: 1em;
+        right: 0;
       }
+      .user-image-container{
+        transform: translateZ(1em) scale(0.9);
       .user-image {
           border-radius: 100%;
           border: 5px solid white;
-          position: absolute;
-          top: 4em;
+          position: relative;
+          top: 6em;
           box-shadow: 0 1px 20px 2px rgba(0,0,0,0.25);
-          transform: translateX(10px)
+          
+      }
       }
   }
 
@@ -94,7 +98,6 @@ perspective: 1000px;
     box-shadow: 0 3px 15px -1px rgba(0,0,0,0.15);
     border-radius: 5px;
     margin-bottom: 1em;
-    overflow: hidden;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -104,7 +107,7 @@ perspective: 1000px;
     position: relative;
     backface-visibility: hidden;
     text-align: center;
-    transition: transform 500ms;
+    transition: transform $speed;
     transform-style: preserve-3d;
 
   }
@@ -143,10 +146,11 @@ perspective: 1000px;
 
   &.active{
     .user-card-front{
-      transform: rotateY(180deg);
+      transform: rotateY(-180deg);
     }
     .user-card-back{
       transform: rotateY(0deg);
+      // display: none;
     }
   }
 }
